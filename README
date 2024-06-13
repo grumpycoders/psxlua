@@ -1,0 +1,49 @@
+
+This is Lua 5.2.4, released on 25 Feb 2015.
+
+For installation instructions, license details, and
+further information about Lua, see doc/readme.html.
+
+===============================================================================
+
+This version of Lua has been modified to work on the Sony PlayStation 1.
+
+There are now only three platforms available for compilation:
+- `psx`: This platform is used to compile Lua for the Sony PlayStation 1. This
+  will only generate a library file named "liblua.a".
+- `psx-noparser`: This platform is used to compile Lua for the Sony PlayStation
+  1 without the parser. Only precompiled bytecode can be loaded by this version.
+  This will only generate a library file named "liblua-noparser.a".
+- `host32`: This platform is used to compile Lua for a 32-bit host system. This
+  will generate the Lua interpreter (lua) and the lua compiler (luac). The
+  compiler should be able to generate bytecode that can be run on the Sony
+  PlayStation 1.
+
+The following key differences exist between the original Lua 5.2.4 and this
+version of Lua:
+- The `os`, `io`, `math`, and `package` libraries has been removed.
+- The `luaL_loadfile` and `luaL_dofile` functions have been removed, as well
+  as their corresponding Lua functions `loadfile` and `dofile`.
+- The interactive debugger has been removed from the `debug` library.
+- Numbers are represented as 32-bits integers, so no floating point numbers
+  are available.
+
+The libraries have exactly four required libc-style imports the user has to
+somehow provide: `luaI_sprintf`, `luaI_realloc`, `luaI_free`, `memcpy`.
+
+Aliasing these functions to the standard C library functions can be done by
+using the following LDFLAGS toggles:
+
+- `-Wl,--defsym,luaI_sprintf=sprintf`
+- `-Wl,--defsym,luaI_realloc=realloc`
+- `-Wl,--defsym,luaI_free=free`
+
+Additionally, a few kernel functions are required from the A0 table, and will
+be called using the typical jump to 0xa0 while setting the function number in
+the T1 register:
+
+- 03: write
+- 13: setjmp
+- 14: longjmp
+- 3c: putchar
+- 40: abort

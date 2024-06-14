@@ -10,10 +10,12 @@ This version of Lua has been modified to work on the Sony PlayStation 1.
 
 There are now only three platforms available for compilation:
 - `psx`: This platform is used to compile Lua for the Sony PlayStation 1. This
-  will only generate a library file named "liblua.a".
+  will only generate a library file named "liblua.a". The binary footprint of
+  this library will be roughly 110kB.
 - `psx-noparser`: This platform is used to compile Lua for the Sony PlayStation
   1 without the parser. Only precompiled bytecode can be loaded by this version.
-  This will only generate a library file named "liblua-noparser.a".
+  This will only generate a library file named "liblua-noparser.a". The binary
+  footprint of this library will be roughly 85kB.
 - `host32`: This platform is used to compile Lua for a 32-bit host system. This
   will generate the Lua interpreter (lua) and the lua compiler (luac). The
   compiler should be able to generate bytecode that can be run on the Sony
@@ -21,7 +23,9 @@ There are now only three platforms available for compilation:
 
 The following key differences exist between the original Lua 5.2.4 and this
 version of Lua:
-- The `os`, `io`, `math`, and `package` libraries has been removed.
+- The `os`, `io`, `math`, and `package` libraries have been removed. This means
+  the functions `luaL_execresult` and `luaL_fileresult` are now irrelevant, and
+  have been removed.
 - The `luaL_loadfile` and `luaL_dofile` functions have been removed, as well
   as their corresponding Lua functions `loadfile` and `dofile`.
 - The interactive debugger has been removed from the `debug` library.

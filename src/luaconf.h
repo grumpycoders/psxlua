@@ -440,11 +440,7 @@ long lua_number2str(char *s, long n);
 ** provide its own implementation.
 */
 
-#ifdef LUA_TARGET_PSX
 long int luaA_strtol(const char *nptr, char **endptr, int base);
-#else
-#define luaA_strtol strtol
-#endif
 
 #define lua_str2number(s,p)	luaA_strtol((s), (p), 10)
 

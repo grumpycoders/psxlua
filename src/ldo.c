@@ -46,7 +46,7 @@
 ** longjmp/setjmp otherwise.
 */
 
-#ifdef LUA_TARGET_PSX
+#if defined(LUA_TARGET_PSX) && !defined(LUA_USE_LIBC_JUMP_PSX)
 struct JmpBuf { void * regs[12]; };
 static inline int syscall_setjmp(struct JmpBuf *buf) {
     register int n asm("t1") = 0x13;

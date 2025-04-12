@@ -402,7 +402,7 @@ static inline void syscall_putchar(int c) {
 ** ===================================================================
 */
 
-//#define LUA_NUMBER_DOUBLE
+#define LUA_NUMBER_LONG
 #define LUA_NUMBER	long
 
 /*
